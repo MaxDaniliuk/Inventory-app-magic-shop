@@ -1,0 +1,21 @@
+{
+  "name": "magic-shop",
+  "version": "1.0.0",
+  "description": "PERN CRUD magic shop app",
+  "main": "server.js",
+  "scripts": {
+    "pretty": "prettier --write '**/*.{css,js,json}'",
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "author": "Maksim Daniliuk",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "17.2.1",
+    "express": "5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "3.1.10",
+    "prettier": "3.6.2"
+  }
+}
