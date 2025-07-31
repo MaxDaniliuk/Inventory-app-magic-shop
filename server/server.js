@@ -15,6 +15,10 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use("/api", homepageRoute);
+app.use("/api/categories", categoriesRoutes);
+app.use("/api/items", itemsRoutes);
+
 seed().then(() => {
   app.listen(PORT, () => {
     console.log(`Server running at http://127.0.0.1:${PORT}/`);
