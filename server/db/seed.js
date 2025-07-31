@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const pool = require("./pool");
+const getTableNames = require("./getTableNames");
 
 async function seed() {
     try {
@@ -9,6 +10,7 @@ async function seed() {
         console.log('Create tables if they do not already exist');
 
         const tables = await getTableNames();
+        console.log('Tables: ', tables);
 
         for (const table of tables) {
             const { rows } = await pool.query(`SELECT COUNT(*) FROM ${table};`)
@@ -24,23 +26,6 @@ async function seed() {
     } catch(error) {
         console.error("Error seeding database: ", error);
         throw error;
-    }
-}
-
-async function getTableNames() {
-    try {
-        const result = await pool.query(`
-            SELECT table_name
-            FROM information_schema.tables
-            WHERE table_schema='public'
-            AND table_type='BASE TABLE';
-        `);
-        
-        const tableNames = result.rows.map(row => row.table_name);
-        console.log('Tables: ', tableNames);
-        return tableNames;
-    } catch(error) {
-        console.error('Error fetching table names:', error);
     }
 }
 
