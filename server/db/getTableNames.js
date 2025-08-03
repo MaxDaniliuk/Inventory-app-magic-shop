@@ -13,7 +13,7 @@ async function getTableNames() {
         const tableNames = result.rows.map(row => row.table_name);
         return tableNames;
     } catch(error) {
-        console.error('Error fetching table names:', error);
+        throw new Error('Error fetching table names');
     }
 }
 

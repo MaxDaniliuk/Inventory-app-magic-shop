@@ -8,7 +8,9 @@ export default function RootLayout() {
         {/* Or make a container
         and stretch header for buttom-line */}
         <nav>
-          <h1>Magic Shop</h1>
+          <h1>
+            <CustomNavLink to="/">Magic Shop</CustomNavLink>
+          </h1>
           <div>
             <CustomNavLink to="/">Homepage</CustomNavLink>
             <CustomNavLink to="/categories">Categories</CustomNavLink>

@@ -1,43 +1,44 @@
-import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import Item from '../components/Item';
 import AsideItem from '../components/AsideItem';
 
-export default function Items() {
-  const [items, setItems] = useState(null);
+export default function CategoryPage() {
+  const { category } = useParams();
+  const [categoryItems, setCategoryItems] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
-    // http://127.0.0.1:8000/api/items
+    // http://127.0.0.1:8000/api/categories
     let ignore = false;
 
-    const fetchItems = async () => {
-      const response = await fetch('/api/items');
+    const fetchCategoryData = async () => {
+      const response = await fetch(`/api/categories/${category}`);
       if (!ignore && response.ok) {
         const json = await response.json();
-        setItems(json);
+        setCategoryItems(json);
       }
     };
 
-    fetchItems();
+    fetchCategoryData();
 
     return () => {
       ignore = true;
     };
-  }, []);
+  }, [category]);
 
   return (
     <div>
       <div className="items-wrapper">
-        <Link to="/">← Back to Home</Link>
-        <h2>Available items</h2>
+        <Link to="/">← Back to Categories</Link>
+        <h2>{category}</h2>
         <div className="items">
-          {items === null ? (
+          {categoryItems === null ? (
             <p>Loading...</p>
-          ) : Object.hasOwn(items[0], 'message') ? (
-            <p>{items[0].message}</p>
+          ) : Object.hasOwn(categoryItems[0], 'message') ? (
+            <p>{categoryItems[0].message}</p>
           ) : (
-            items.map(item => (
+            categoryItems.map(item => (
               <Item
                 key={`${item.category}/${item.id}`}
                 item={item}

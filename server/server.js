@@ -1,6 +1,5 @@
 require("dotenv").config();
 const express = require("express");
-const homepageRoute = require("./routes/hompage");
 const categoriesRoutes = require("./routes/categories");
 const itemsRoutes = require("./routes/items");
 const seed = require("./db/seed");
@@ -15,7 +14,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api", homepageRoute);
 app.use("/api/categories", categoriesRoutes);
 app.use("/api/items", itemsRoutes);
 

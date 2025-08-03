@@ -13,18 +13,6 @@ const getItems = async (req, res) => {
     
 };
 
-const getItem = async (req, res) => {
-    const {category, id} = req.params;
-    try {
-        const item = await db.selectSingleItem(category.toLowerCase(), parseInt(id));
-        res.status(200).json(item);
-    } catch (error) {
-        res.status(404).json([{message: error.message}]);
-    }
-    
-};
-
 module.exports = {
-    getItems,
-    getItem
+    getItems
 }
