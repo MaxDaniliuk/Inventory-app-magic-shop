@@ -7,16 +7,40 @@ export default function CategoryPage() {
   const { category } = useParams();
   const [categoryItems, setCategoryItems] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [error, setError] = useState('Loading');
 
   useEffect(() => {
-    // http://127.0.0.1:8000/api/categories
     let ignore = false;
 
     const fetchCategoryData = async () => {
-      const response = await fetch(`/api/categories/${category}`);
-      if (!ignore && response.ok) {
-        const json = await response.json();
-        setCategoryItems(json);
+      try {
+        const response = await fetch(`/api/categories/${category}`);
+
+        const contentType = response.headers.get('content-type');
+        const isJson = contentType && contentType.includes('application/json');
+        let json;
+        if (isJson) {
+          json = await response.json();
+        }
+
+        if (!response.ok) {
+          const errorMessage = json?.message || 'Failed to load categories';
+          throw new Error(errorMessage);
+        }
+
+        if (Array.isArray(json)) {
+          if (!ignore) {
+            setCategoryItems(json);
+            setError('');
+          }
+        } else {
+          throw new Error('Unexpected response format');
+        }
+      } catch (error) {
+        if (!ignore) {
+          set(null);
+          setError(error.message || 'Something went wrong');
+        }
       }
     };
 
@@ -30,13 +54,11 @@ export default function CategoryPage() {
   return (
     <div>
       <div className="items-wrapper">
-        <Link to="/">← Back to Categories</Link>
+        <Link to="/categories">← Back to Categories</Link>
         <h2>{category}</h2>
         <div className="items">
-          {categoryItems === null ? (
-            <p>Loading...</p>
-          ) : Object.hasOwn(categoryItems[0], 'message') ? (
-            <p>{categoryItems[0].message}</p>
+          {!categoryItems ? (
+            <p>{error}</p>
           ) : (
             categoryItems.map(item => (
               <Item

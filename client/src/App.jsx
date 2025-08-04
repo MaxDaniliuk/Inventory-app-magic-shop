@@ -8,11 +8,12 @@ import {
 // Layout
 import RootLayout from './layouts/RootLayout';
 
-// Page
+// Pages
 import Homepage from './pages/Homepage';
 import Items from './pages/Items';
 import Categories from './pages/Categories';
 import CategoryPage from './pages/CategoryPage';
+import NotFound from './pages/error/NotFound';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,6 +22,7 @@ const router = createBrowserRouter(
       <Route path="items" element={<Items />} />
       <Route path="categories/" element={<Categories />} />
       <Route path="categories/:category" element={<CategoryPage />} />
+      <Route path="*" element={<NotFound />} />
     </Route>,
   ),
 );

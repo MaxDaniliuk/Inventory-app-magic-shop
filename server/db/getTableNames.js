@@ -13,7 +13,7 @@ async function getTableNames() {
         const tableNames = result.rows.map(row => row.table_name);
         return tableNames;
     } catch(error) {
-        throw new Error('Error fetching table names');
+        throw new Error('Connection to DB has been lost. Error fetching categories.');
     }
 }
 

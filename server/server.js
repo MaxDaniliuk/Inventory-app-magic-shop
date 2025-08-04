@@ -22,5 +22,8 @@ seed().then(() => {
     console.log(`Server running at http://127.0.0.1:${PORT}/`);
   });
 }).catch(err => {
-  console.error("Failed to seed DB, not starting server:", err);
+  console.error("Failed to seed DB, starting server without connection to DB:", err);
+  app.listen(PORT, () => {
+    console.log(`Server running at http://127.0.0.1:${PORT}/`);
+  })
 });

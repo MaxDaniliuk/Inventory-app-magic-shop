@@ -5,17 +5,42 @@ import AsideItem from '../components/AsideItem';
 
 export default function Items() {
   const [items, setItems] = useState(null);
+  const [error, setError] = useState('Loading');
   const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
-    // http://127.0.0.1:8000/api/items
     let ignore = false;
 
     const fetchItems = async () => {
-      const response = await fetch('/api/items');
-      if (!ignore && response.ok) {
-        const json = await response.json();
-        setItems(json);
+      try {
+        const response = await fetch('/api/items');
+
+        const contentType = response.headers.get('content-type');
+        const isJson = contentType && contentType.includes('application/json');
+
+        let json;
+        if (isJson) {
+          json = await response.json();
+        }
+
+        if (!response.ok) {
+          const errorMessage = json?.message || 'Failed to load items';
+          throw new Error(errorMessage);
+        }
+
+        if (Array.isArray(json)) {
+          if (!ignore) {
+            setItems(json);
+            setError('');
+          }
+        } else {
+          throw new Error('Unexpected response format');
+        }
+      } catch (error) {
+        if (!ignore) {
+          setItems(null);
+          setError(error.message || 'Something went wrong');
+        }
       }
     };
 
@@ -32,10 +57,8 @@ export default function Items() {
         <Link to="/">← Back to Home</Link>
         <h2>Available items</h2>
         <div className="items">
-          {items === null ? (
-            <p>Loading...</p>
-          ) : Object.hasOwn(items[0], 'message') ? (
-            <p>{items[0].message}</p>
+          {!items ? (
+            <p>{error}</p>
           ) : (
             items.map(item => (
               <Item

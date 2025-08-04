@@ -9,7 +9,7 @@ const getCategories = async (req, res) => {
         }
         res.status(200).json(categories)
     } catch (error) {
-        res.status(404).json([{message: error.message}]);
+        res.status(500).json({message: error.message || 'Internal Server Error'});
     }
 };
 
@@ -19,7 +19,7 @@ const getCategory = async (req, res) => {
         const targetCategory = await db.selectSingleCategory(category.toLowerCase());
         res.status(200).json(targetCategory);
     } catch (error) {
-        res.status(404).json([{message: error.message}]);
+        res.status(404).json({message: error.message});
     }
 };
 

@@ -8,7 +8,7 @@ const getItems = async (req, res) => {
         }
         res.status(200).json(items);
     } catch (error) {
-        res.status(404).json([{message: "Shop inventorization... Come back later"}]);
+        res.status(404).json({message: "Shop inventorization... Come back later"});
     }
     
 };
