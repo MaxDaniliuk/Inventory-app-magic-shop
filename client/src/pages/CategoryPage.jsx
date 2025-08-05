@@ -38,7 +38,7 @@ export default function CategoryPage() {
         }
       } catch (error) {
         if (!ignore) {
-          set(null);
+          setCategoryItems(null);
           setError(error.message || 'Something went wrong');
         }
       }
@@ -57,7 +57,7 @@ export default function CategoryPage() {
         <Link to="/categories">
           <span>← Categories</span>
         </Link>
-        <h2>{category}</h2>
+        <h2>{error === '' || error === 'Loading' ? category : ''}</h2>
         <div className="aside-related-separator">
           <div className="items">
             {!categoryItems ? (
