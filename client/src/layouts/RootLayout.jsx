@@ -5,27 +5,32 @@ export default function RootLayout() {
   return (
     <div className="root-layout">
       <header>
-        {/* Or make a container
-        and stretch header for buttom-line */}
-        <nav>
+        <nav className="nav">
           <h1>
-            <CustomNavLink to="/">Magic Shop</CustomNavLink>
+            <CustomNavLink to="/">
+              <span>Magic Shop</span>
+            </CustomNavLink>
           </h1>
           <div>
-            <CustomNavLink to="/">Homepage</CustomNavLink>
-            <CustomNavLink to="/categories">Categories</CustomNavLink>
-            <CustomNavLink to="/items">Items</CustomNavLink>
+            <CustomNavLink to="/">
+              <span>Homepage</span>
+            </CustomNavLink>
+            <CustomNavLink to="/categories">
+              <span>Categories</span>
+            </CustomNavLink>
+            <CustomNavLink to="/items">
+              <span>Items</span>
+            </CustomNavLink>
           </div>
         </nav>
       </header>
-      {/* <div className="header-bottom-line"></div> */}
       <main className="main">
         <Outlet />
       </main>
-      {/* <footer>
-        <div className="flex items-center justify-center bg-blue-950 p-[0.5em] text-[#fafafa]">
-          <p className="flex items-center justify-center gap-[0.25em]">
-            <span className="text-[1.1rem]">©</span>
+      <footer className="footer">
+        <div>
+          <p>
+            <span>©</span>
             <span>{new Date().getFullYear()}</span>
             <a
               href="https://github.com/MaxDaniliuk/Inventory-app-magic-shop"
@@ -34,7 +39,6 @@ export default function RootLayout() {
               aria-label="(Opens in a new tab)"
             >
               <svg
-                className="w-[1em]"
                 viewBox="0 0 20 20"
                 version="1.1"
                 xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +66,7 @@ export default function RootLayout() {
                     <g
                       id="Dribbble-Light-Preview"
                       transform="translate(-140.000000, -7559.000000)"
-                      fill="#fafafa"
+                      fill="#000000B3"
                     >
                       {' '}
                       <g
@@ -84,7 +88,7 @@ export default function RootLayout() {
             </a>
           </p>
         </div>
-      </footer> */}
+      </footer>
     </div>
   );
 }

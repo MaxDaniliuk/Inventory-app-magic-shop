@@ -50,7 +50,9 @@ export default function Categories() {
 
   return (
     <div className="categories-wrapper">
-      <Link to="/">← Back to Home</Link>
+      <Link to="/">
+        <span>← Home</span>
+      </Link>
       <h2>Categories</h2>
       <div className="categories">
         {!categories ? (

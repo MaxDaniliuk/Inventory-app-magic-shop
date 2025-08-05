@@ -54,29 +54,32 @@ export default function Items() {
   return (
     <div>
       <div className="items-wrapper">
-        <Link to="/">← Back to Home</Link>
+        <Link to="/">
+          <span>← Home</span>
+        </Link>
         <h2>Available items</h2>
-        <div className="items">
-          {!items ? (
-            <p>{error}</p>
-          ) : (
-            items.map(item => (
-              <Item
-                key={`${item.category}/${item.id}`}
-                item={item}
-                onClick={() => setSelectedItem(item)}
-              />
-            ))
+        <div className="aside-related-separator">
+          <div className="items">
+            {!items ? (
+              <p>{error}</p>
+            ) : (
+              items.map(item => (
+                <Item
+                  key={`${item.category}/${item.id}`}
+                  item={item}
+                  onClick={() => setSelectedItem(item)}
+                />
+              ))
+            )}
+          </div>
+          {selectedItem && (
+            <AsideItem
+              selectedItem={selectedItem}
+              selectItem={() => setSelectedItem(null)}
+            />
           )}
         </div>
       </div>
-
-      {selectedItem && (
-        <AsideItem
-          selectedItem={selectedItem}
-          selectItem={() => setSelectedItem(null)}
-        />
-      )}
     </div>
   );
 }

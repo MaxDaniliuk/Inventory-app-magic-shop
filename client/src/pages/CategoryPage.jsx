@@ -54,29 +54,32 @@ export default function CategoryPage() {
   return (
     <div>
       <div className="items-wrapper">
-        <Link to="/categories">← Back to Categories</Link>
+        <Link to="/categories">
+          <span>← Categories</span>
+        </Link>
         <h2>{category}</h2>
-        <div className="items">
-          {!categoryItems ? (
-            <p>{error}</p>
-          ) : (
-            categoryItems.map(item => (
-              <Item
-                key={`${item.category}/${item.id}`}
-                item={item}
-                onClick={() => setSelectedItem(item)}
-              />
-            ))
+        <div className="aside-related-separator">
+          <div className="items">
+            {!categoryItems ? (
+              <p>{error}</p>
+            ) : (
+              categoryItems.map(item => (
+                <Item
+                  key={`${item.category}/${item.id}`}
+                  item={item}
+                  onClick={() => setSelectedItem(item)}
+                />
+              ))
+            )}
+          </div>
+          {selectedItem && (
+            <AsideItem
+              selectedItem={selectedItem}
+              selectItem={() => setSelectedItem(null)}
+            />
           )}
         </div>
       </div>
-
-      {selectedItem && (
-        <AsideItem
-          selectedItem={selectedItem}
-          selectItem={() => setSelectedItem(null)}
-        />
-      )}
     </div>
   );
 }
